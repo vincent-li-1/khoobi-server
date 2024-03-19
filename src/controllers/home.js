@@ -7,7 +7,7 @@ async function getAllData() {
     from services
     `;
 
-    return data
+    return data;
 }
 
 async function addServiceToDb(service) {
@@ -21,9 +21,9 @@ async function addServiceToDb(service) {
 
 
 const homeController = {
-    getIndex: async (req, res) => {
+    getServices: async (req, res) => {
         const data = await getAllData();
-        res.json({data});
+        res.json(data);
     },
 
     addService: async (req, res) => {
