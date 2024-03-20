@@ -36,7 +36,7 @@ async function addServiceToDb(service) {
     `;
 }
 
-async function editServiceInDb(service) {
+async function editServiceInDb(serviceId, service) {
     await sql`
     update services set
         service_name = ${service.name},
@@ -46,11 +46,19 @@ async function editServiceInDb(service) {
         booking_url = ${service.booking_url},
         booking_name = ${service.booking_name},
         rating = ${service.rating}
-    `
+    where
+        id = ${serviceId}
+    `;
 }
 
+async function deleteServiceInDb(serviceId) {
+    await sql`
+    delete from services where
+        id = ${serviceId}
+    `;
+}
 
-const homeController = {
+const serviceController = {
 
     getServices: async (req, res) => {
         const data = await getAllData();
@@ -59,10 +67,20 @@ const homeController = {
 
     addService: async (req, res) => {
         const serviceToAdd = req.body;
-        console.log(serviceToAdd);
         await addServiceToDb(serviceToAdd);
         res.json('Added service!');
+    },
+
+    editService: async (req, res) => {
+        const serviceToEdit = req.body;
+        await editServiceInDb(req.params.id, serviceToEdit);
+        res.json('Edited service!');
+    },
+
+    deleteService: async (req, res) => {
+        await deleteServiceInDb(req.params.id);
+        res.json('Deleted service!');
     }
 }
 
-export default homeController;
+export default serviceController;

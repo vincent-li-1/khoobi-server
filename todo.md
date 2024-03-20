@@ -12,4 +12,4 @@ Add auth tokens or something to API calls
 
 Create login shielded input
 
-Edit and delete API
+Edit and delete API - done
