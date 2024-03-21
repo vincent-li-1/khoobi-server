@@ -9,14 +9,13 @@ import servicesRoutes from './routes/services.js';
 const { expressjwt } = jwt;
 
 const app = express();
-
-
  
 // app.set('view engine', 'ejs');
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use('/services', servicesRoutes);
 
 const __dirname = import.meta.dirname;
 
@@ -50,8 +49,6 @@ const checkJwt = expressjwt({
 });
 
 // app.use(checkJwt);
-
-app.use('/services', servicesRoutes);
 
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
 
