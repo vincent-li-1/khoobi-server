@@ -1,4 +1,4 @@
-Figure out frontend:
+Figure out frontend: - done
     - Connect wordpress forms to backend server
     - Build react frontend with router and link wordpress URL to server
     React: 
@@ -13,3 +13,13 @@ Add auth tokens or something to API calls
 Create login shielded input
 
 Edit and delete API - done
+
+Set up tags on service cards
+
+Figure out how to route fetch request to right URL - change manually when deploying? Window.location to get current url? - done already with navigate
+
+Test deploying
+
+implement ALL locations
+
+waitlist form
