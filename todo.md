@@ -16,10 +16,10 @@ Edit and delete API - done
 
 Set up tags on service cards
 
-Figure out how to route fetch request to right URL - change manually when deploying? Window.location to get current url? - done already with navigate
+Figure out how to route fetch request to right URL - change manually when deploying? Window.location to get current url? - done
 
 Test deploying - done
 
-implement ALL locations
+implement ALL locations - done
 
 waitlist form

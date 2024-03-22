@@ -2,7 +2,13 @@ import sql from '../db/db.js';
 import path from 'path';
 
 async function getData(serviceType, location) {
-    const data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location}`;
+    let data;
+    if (location !== 'all') {
+        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location}`;
+    }
+    else {
+        data = await sql`SELECT * FROM services WHERE service_name=${serviceType}`;
+    }
 
     return data;
 }
