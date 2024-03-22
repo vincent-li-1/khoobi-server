@@ -57,7 +57,6 @@ async function deleteServiceInDb(serviceId) {
 const serviceController = {
 
     getServices: async (req, res) => {
-        console.log('Getting');
         const serviceType = req.params.service.toLowerCase();
         const location = req.params.location.toLowerCase();
         const services = await getData(serviceType, location);

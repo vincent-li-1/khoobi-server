@@ -18,7 +18,7 @@ Set up tags on service cards
 
 Figure out how to route fetch request to right URL - change manually when deploying? Window.location to get current url? - done already with navigate
 
-Test deploying
+Test deploying - done
 
 implement ALL locations
 
