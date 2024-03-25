@@ -65,6 +65,17 @@ async function getTagsInDb(serviceId) {
     return tags.map(resObject => resObject.tag);
 }
 
+async function getLocationsInDb() {
+    let locations = await sql`SELECT location from services`;
+    return locations.map(entry => entry.location).filter((location, index, array) => {
+       return array.indexOf(location) === index;
+    }).map(location => convertFirstLetterToUppercase(location));
+}
+
+function convertFirstLetterToUppercase(phrase) {
+    const words = phrase.split(" ");
+    return words.map(word => (word[0].toUpperCase() + word.substring(1))).join(" ");
+}
 const serviceController = {
     getServices: async (req, res) => {
         const serviceType = req.params.service.toLowerCase();
@@ -95,6 +106,11 @@ const serviceController = {
     getTags: async (req, res) => {
         const tags = await getTagsInDb(req.params.serviceId);
         res.json(tags);
+    },
+
+    getLocations: async (req, res) => {
+        const locations = await getLocationsInDb();
+        res.json(locations);
     }
 }
 
