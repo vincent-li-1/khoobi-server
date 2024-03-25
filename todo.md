@@ -20,6 +20,8 @@ Figure out how to route fetch request to right URL - change manually when deploy
 
 Test deploying - done
 
-implement ALL locations - done
+implement ALL locations - done, not deployed
 
 waitlist form
+
+change name servers

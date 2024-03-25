@@ -1,15 +1,13 @@
 import sql from '../db/db.js';
-import path from 'path';
 
 async function getData(serviceType, location) {
     let data;
     if (location !== 'all') {
-        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location}`;
+        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location} ORDER BY cost ASC`;
     }
     else {
         data = await sql`SELECT * FROM services WHERE service_name=${serviceType}`;
     }
-
     return data;
 }
 
@@ -60,8 +58,14 @@ async function deleteServiceInDb(serviceId) {
     `;
 }
 
-const serviceController = {
+async function getTagsInDb(serviceId) {
+    let tagIds = await sql`SELECT tagId FROM tagsxservices WHERE serviceId=${serviceId}`
+    tagIds = tagIds.map(entry => entry.tagid);
+    const tags = await sql`SELECT tag FROM tags WHERE id IN ${ sql(tagIds) }`
+    return tags.map(resObject => resObject.tag);
+}
 
+const serviceController = {
     getServices: async (req, res) => {
         const serviceType = req.params.service.toLowerCase();
         const location = req.params.location.toLowerCase();
@@ -86,6 +90,11 @@ const serviceController = {
     deleteService: async (req, res) => {
         await deleteServiceInDb(req.params.id);
         res.json('Deleted service!');
+    },
+
+    getTags: async (req, res) => {
+        const tags = await getTagsInDb(req.params.serviceId);
+        res.json(tags);
     }
 }
 

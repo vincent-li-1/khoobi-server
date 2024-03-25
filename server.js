@@ -5,6 +5,7 @@ import 'dotenv/config';
 import path from 'path';
 import cors from 'cors';
 import servicesRoutes from './routes/services.js';
+import interestRoutes from './routes/interest.js';
 
 const { expressjwt } = jwt;
 
@@ -16,6 +17,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use('/services', servicesRoutes);
+app.use('/interest', interestRoutes);
 
 const __dirname = import.meta.dirname;
 

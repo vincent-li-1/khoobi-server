@@ -6,5 +6,6 @@ router.get('/getServices/:service/:location', serviceController.getServices);
 router.put('/addService', serviceController.addService);
 router.put('/editService/:id', serviceController.editService);
 router.delete('/deleteService/:id', serviceController.deleteService);
+router.get('/getTags/:serviceId', serviceController.getTags);
 
 export default router;
