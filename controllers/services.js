@@ -66,10 +66,10 @@ async function getTagsInDb(serviceId) {
 }
 
 async function getLocationsInDb() {
-    let locations = await sql`SELECT location from services`;
+    let locations = await sql`SELECT location from services ORDER BY location asc`;
     return locations.map(entry => entry.location).filter((location, index, array) => {
        return array.indexOf(location) === index;
-    }).map(location => convertFirstLetterToUppercase(location));
+    }).sort();
 }
 
 function convertFirstLetterToUppercase(phrase) {
