@@ -6,7 +6,7 @@ async function getData(serviceType, location) {
         data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location} ORDER BY cost ASC`;
     }
     else {
-        data = await sql`SELECT * FROM services WHERE service_name=${serviceType}`;
+        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} ORDER BY cost ASC`;
     }
     return data;
 }
