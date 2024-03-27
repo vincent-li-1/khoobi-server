@@ -1,13 +1,7 @@
 import sql from '../db/db.js';
 
-async function getData(serviceType, location) {
-    let data;
-    if (location !== 'all') {
-        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location=${location} ORDER BY cost ASC`;
-    }
-    else {
-        data = await sql`SELECT * FROM services WHERE service_name=${serviceType} ORDER BY cost ASC`;
-    }
+async function getData(serviceType, locations) {
+    const data = await sql`SELECT * FROM services WHERE service_name=${serviceType} AND location IN ${ sql(locations) } ORDER BY cost ASC`;
     return data;
 }
 
@@ -72,15 +66,11 @@ async function getLocationsInDb() {
     }).sort();
 }
 
-function convertFirstLetterToUppercase(phrase) {
-    const words = phrase.split(" ");
-    return words.map(word => (word[0].toUpperCase() + word.substring(1))).join(" ");
-}
 const serviceController = {
     getServices: async (req, res) => {
         const serviceType = req.params.service.toLowerCase();
-        const location = req.params.location.toLowerCase();
-        const services = await getData(serviceType, location);
+        const locations = req.params.locations.toLowerCase().split(',');
+        const services = await getData(serviceType, locations);
         res.json(services);
     },
 
